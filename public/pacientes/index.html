@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD de Pacientes</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gerenciar Pacientes</h1>
+        
+        <h2>Adicionar Novo Paciente</h2>
+        <form id="createPacienteForm">
+            <input type="text" id="nome" placeholder="Nome do Paciente" required>
+            <input type="text" id="cpf" placeholder="CPF" required>
+            <input type="text" id="data_nasc" placeholder="Data de Nascimento" required>
+            <input type="text" id="sexo" placeholder="Sexo" required>
+            <input type="text" id="telefone" placeholder="Telefone" required>
+            <button type="submit">Cadastrar Paciente</button>
+        </form>
+
+        <h2>Lista de Pacientes</h2>
+
+        <div class="search-container">
+            <select id="tipoBusca">
+                <option value="nome">Nome</option>
+                <option value="cpf">CPF</option>
+            </select>
+            <input type="text" id="pesquisarPaciente" placeholder="Pesquisar por um paciente...">
+            <button id="botaoPesquisar">Pesquisar</button>
+        </div>
+
+        <ul id="pacientesList"></ul>
+    </div>
+
+    <script src="./js/scripts.js"></script>
+</body>
+</html>
