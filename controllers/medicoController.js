@@ -1,25 +1,36 @@
-const medicoModel = require('./../models/medicoModel')
+const Medico = require('./../models/medicoModel')
+const { Op } = require('sequelize')
 
 exports.getMedicos = async (req, res) => {
     try { 
-        if (req.query.nome) { // Verifica se o parâmetro nome existe
-            const medico = await medicoModel.getMedicoNome(req.query.nome);
+        if (req.query.nome) { 
+            const medicos = await Medico.findAll({
+                where: {
+                    Nome: {
+                        [Op.like]: `%${req.query.nome}%`
+                    }
+                }
+            })
             res.status(200).json({
                 status: "success",
-                data: { medicos: medico }
-            });
+                data: medicos
+            })
         } else if (req.query.crm) { // Verifica se o parâmetro crm existe
-            const medico = await medicoModel.getMedicoCrm(req.query.crm);
+            const medico = await Medico.findAll({
+                where: {
+                    CRM: req.query.crm
+                }
+            })
             res.status(200).json({
                 status: "success",
-                data: { medicos: medico }
-            });
+                data: medico
+            })
         } else {
-            const medico = await medicoModel.getAllMedicos();
+            const medicos = await Medico.findAll()
             res.status(200).json({
                 status: "success",
-                data: { medicos: medico }
-            });
+                data: medicos
+            })
         }
         
     } catch (err) {
@@ -51,7 +62,12 @@ exports.getMedicos = async (req, res) => {
 
 exports.createMedico = async (req, res) => {
     try { 
-        const medico = await medicoModel.createMedico(req.body)
+        const medico = await Medico.createMedico({
+            Nome: req.body.Nome,
+            CRM: req.body.CRM,
+            Telefone: req.body.Telefone,
+            Email: req.body.Email
+        })
         res.status(201).json({
             status: "success",
             data: {
@@ -68,16 +84,7 @@ exports.createMedico = async (req, res) => {
 
 exports.updateMedico = async (req, res) => {
     try {
-        // Inicializa o objeto de atualizações
-        let atualizacao = {}
-
-        // Preenche o objeto de atualizações com os valores de req.body
-        const keys = Object.keys(req.body)
-        keys.forEach(key => {
-            atualizacao[key] = req.body[key]
-        })
-        console.log(atualizacao)
-        const medico = await medicoModel.updateMedico(atualizacao, req.params.crm)
+        
 
         res.status(200).json({
             status: 'success',
@@ -95,13 +102,22 @@ exports.updateMedico = async (req, res) => {
 
 exports.deleteMedico = async (req, res) => {
     try {
-        const medico = await medicoModel.deleteMedico(req.params.crm)
-        
+        const resultado = Medico.destroy({
+            where: {
+                CRM: req.params.CRM
+            }
+        })
+
+        if (resultado === 0) {
+            res.status(404).json({
+                status: 'fail',
+                message: 'Nenhum médico foi encontrado'
+            })
+        }
+
         res.status(200).json({
             status: 'success',
-            data: { 
-                medico
-            }
+            message: 'Médico deletado com sucesso'
         })
     } catch (err) {
         res.status(404).json({
