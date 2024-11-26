@@ -14,7 +14,7 @@ const exameRoute = require('./routes/exameRoute')
 
 app.use(express.json());
 
-app.use('/api/v1/medico', medicoRoute)
+app.use('/medico', medicoRoute)
 app.use('/api/v1/paciente', pacienteRoute)
 app.use('/api/v1/exame', exameRoute)
 

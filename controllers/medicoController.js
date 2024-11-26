@@ -1,45 +1,39 @@
-const Medico = require('./../models/medicoModel')
-const { Op } = require('sequelize')
+const Medico = require('./../models/medicoModel');
+const { Op } = require('sequelize');
 
 exports.getMedicos = async (req, res) => {
-    try { 
-        if (req.query.nome) { 
-            const medicos = await Medico.findAll({
-                where: {
-                    Nome: {
-                        [Op.like]: `%${req.query.nome}%`
-                    }
-                }
-            })
-            res.status(200).json({
-                status: "success",
-                data: medicos
-            })
-        } else if (req.query.crm) { // Verifica se o parâmetro crm existe
-            const medico = await Medico.findAll({
-                where: {
-                    CRM: req.query.crm
-                }
-            })
-            res.status(200).json({
-                status: "success",
-                data: medico
-            })
-        } else {
-            const medicos = await Medico.findAll()
-            res.status(200).json({
-                status: "success",
-                data: medicos
-            })
+    try {
+        const { nome, crm } = req.query;
+        let where = {};
+
+        // Adiciona condição para o filtro de nome
+        if (nome) {
+            where.nome = {
+                [Op.like]: `%${nome}%`
+            };
         }
-        
+
+        // Adiciona condição para o filtro de CRM
+        if (crm) {
+            where.CRM = crm;
+        }
+
+        // Busca os médicos com base nos filtros aplicados
+        const medicos = await Medico.findAll({
+            where
+        });
+
+        res.status(200).json({
+            status: 'success',
+            data: medicos
+        });
     } catch (err) {
         res.status(400).json({
-            status: "fail",
+            status: 'fail',
             message: err.message
-        })
+        });
     }
-}
+};
 
 // A P A G A R
 // exports.getAllMedicos = async (req, res) => {
@@ -62,7 +56,7 @@ exports.getMedicos = async (req, res) => {
 
 exports.createMedico = async (req, res) => {
     try { 
-        const medico = await Medico.createMedico({
+        const medico = await Medico.create({
             Nome: req.body.Nome,
             CRM: req.body.CRM,
             Telefone: req.body.Telefone,
@@ -102,7 +96,7 @@ exports.updateMedico = async (req, res) => {
 
 exports.deleteMedico = async (req, res) => {
     try {
-        const resultado = Medico.destroy({
+        const resultado = await Medico.destroy({
             where: {
                 CRM: req.params.CRM
             }

@@ -1,23 +1,20 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('mysql2');
+const { Sequelize } = require('sequelize');
 
-exports.Medico = sequelize.define(
-    'Medico',
-    {
-        Nome: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        CRM: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        Telefone: {
-            type: DataTypes.STRING
-        },
-        Email: {
-            type: DataTypes.STRING
-        }
-    },
-    { tableName: 'medico_oncologista' }
-)
+const sequelize = new Sequelize('sistemaoncologico', 'root', '', {
+    host: 'localhost',
+    dialect: 'mysql'
+});
+
+async function validarBanco(){
+    try {
+        await sequelize.authenticate();
+        console.log('A conexão com o banco de dados foi estabelecida com sucesso.');
+    } catch (err) {
+        console.log('Erro na conexão com o banco de dados: ', err.message);
+    }
+}
+
+validarBanco();
+
+module.exports = sequelize;
+
