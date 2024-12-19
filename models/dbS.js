@@ -1,8 +1,16 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('sistemaoncologico', 'root', '', {
-    host: 'localhost',
-    dialect: 'mysql'
+const dbConfig = {
+    username: "root",
+    password: "",
+    database: "sistemaoncologico",
+    host: "127.0.0.1",
+    dialect: "mysql"
+  };
+
+const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
+    host: dbConfig.host,
+    dialect: dbConfig.dialect
 });
 
 async function validarBanco(){
@@ -16,5 +24,4 @@ async function validarBanco(){
 
 validarBanco();
 
-module.exports = sequelize;
-
+module.exports = { sequelize, dbConfig };

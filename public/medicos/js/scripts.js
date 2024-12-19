@@ -1,36 +1,32 @@
 const medicosList = document.getElementById('medicosList');
 const createMedicoForm = document.getElementById('createMedicoForm');
 
-// Função para carregar todos os médicos
 function loadMedicos() {
     fetch('/medico')
         .then(response => response.json())
         .then(data => {
-            medicosList.innerHTML = ''; // Limpa a lista existente de médicos
-            console.log(data)
+            medicosList.innerHTML = '';
+            
             data.data.forEach(medico => {
                 const li = document.createElement('li');
                 li.innerHTML = `
-                    Nome: ${medico.Nome} <br> CRM: ${medico.CRM} <br> Telefone: ${medico.Telefone} <br> Email: ${medico.Email}
-                    <button data-crm="${medico.CRM}" class="deleteBtn">Deletar</button>
+                    Nome: ${medico.nome} <br> CRM: ${medico.crm} <br> Telefone: ${medico.telefone} <br> Email: ${medico.email}
+                    <button data-crm="${medico.crm}" class="deleteBtn">Deletar</button>
                 `;
                 medicosList.appendChild(li);
             });
 
-            // Aplica os listeners de delete após carregar a lista
             applyDeleteListeners();
         })
         .catch(err => console.log(err));
 }
 
-// Função para aplicar os event listeners de delete nos botões "Deletar"
 function applyDeleteListeners() {
     document.querySelectorAll('.deleteBtn').forEach(button => {
-        button.addEventListener('click', deleteMedico); // Liga a função de deletar ao botão
+        button.addEventListener('click', deleteMedico);
     });
 }
 
-// Função para deletar um médico
 function deleteMedico(event) {
     const crm = event.target.getAttribute('data-crm');
 
@@ -39,7 +35,7 @@ function deleteMedico(event) {
     })
     .then(response => {
         if (response.ok) {
-            loadMedicos(); // Recarrega a lista de médicos após deletar
+            loadMedicos();
         } else {
             console.log('Erro ao deletar médico');
         }
@@ -47,7 +43,6 @@ function deleteMedico(event) {
     .catch(err => console.log(err));
 }
 
-// Event listener para o formulário de criação de médicos
 createMedicoForm.addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -67,13 +62,12 @@ createMedicoForm.addEventListener('submit', function(event) {
     })
     .then(response => response.json())
     .then(data => {
-        loadMedicos(); // Recarrega a lista de médicos após adicionar um novo médico
-        createMedicoForm.reset(); // Limpa o formulário
+        loadMedicos();
+        createMedicoForm.reset(); 
     })
     .catch(err => console.log(err));
 });
 
-// Event listener para o botão de busca
 document.getElementById('botaoPesquisar').addEventListener('click', function() {
     const tipoBusca = document.getElementById('tipoBusca').value;
     const pesquisarMedico = document.getElementById('pesquisarMedico').value;
@@ -87,8 +81,8 @@ document.getElementById('botaoPesquisar').addEventListener('click', function() {
                     data.data.forEach(medico => {
                         const li = document.createElement('li');
                         li.innerHTML = `
-                            Nome: ${medico.Nome} <br> CRM: ${medico.CRM} <br> Telefone: ${medico.Telefone} <br> Email: ${medico.Email}
-                            <button data-crm="${medico.CRM}" class="deleteBtn">Deletar</button>
+                            Nome: ${medico.nome} <br> CRM: ${medico.crm} <br> Telefone: ${medico.telefone} <br> Email: ${medico.email}
+                            <button data-crm="${medico.crm}" class="deleteBtn">Deletar</button>
                         `;
                         medicosList.appendChild(li);
                     });
@@ -96,7 +90,6 @@ document.getElementById('botaoPesquisar').addEventListener('click', function() {
                     medicosList.innerHTML = '<li>Nenhum médico encontrado.</li>';
                 }
 
-                // Aplica os listeners de delete após a busca
                 applyDeleteListeners();
             })
             .catch(err => console.log('Erro ao buscar médicos:', err));

@@ -1,44 +1,31 @@
-const exameModel = require('./../models/exameModel');
+const Exame = require('./../models/exame');
 
 exports.getExames = async (req, res) => {
     try {
-        if (req.query.data) { // Verifica se o parâmetro data existe
-            const exame = await exameModel.getExamePorData(req.query.data);
-            res.status(200).json({
-                status: "success",
-                data: { exames: exame }
-            });
-        } else if (req.query.tipo) { // Verifica se o parâmetro cod_tipo existe
-            const exame = await exameModel.getExamePorCodTipo(req.query.tipo);
-            res.status(200).json({
-                status: "success",
-                data: { exames: exame }
-            });
-        } else if (req.query.crm) { // Verifica se o parâmetro crm existe
-            const exame = await exameModel.getExamePorCrm(req.query.crm);
-            res.status(200).json({
-                status: "success",
-                data: { exames: exame }
-            });
-        } else if (req.query.cpf) { // Verifica se o parâmetro cpf existe
-            const exame = await exameModel.getExamePorCpf(req.query.cpf);
-            res.status(200).json({
-                status: "success",
-                data: { exames: exame }
-            });
-        } else if (req.query.cod_exame) { // Verifica se o parâmetro cod_exame existe
-            const exame = await exameModel.getExamePorCodExame(req.query.cod_exame);
-            res.status(200).json({
-                status: "success",
-                data: { exames: exame }
-            });
-        } else {
-            const exame = await exameModel.getAllExames();
-            res.status(200).json({
-                status: "success",
-                data: { exames: exame }
-            });
+        const { cod_tipo, cpf, crm, data } = req.query;
+        const where = {}
+
+        if (cod_tipo) {
+            where.cod_tipo = cod_tipo
         }
+        if (cpf) {
+            where.cpf = cpf
+        }
+        if (crm) {
+            where.crm = crm
+        }
+        if (data) {
+            where.data = data
+        }
+
+        const exames = await Exame.findAll({
+            where
+        })
+
+        res.status(200).json({
+            status: "success",
+            data: exames
+        });
         
     } catch (err) {
         res.status(400).json({
@@ -50,12 +37,18 @@ exports.getExames = async (req, res) => {
 
 exports.createExame = async (req, res) => {
     try {
-        const exame = await exameModel.createExame(req.body);
+        const exame = await Exame.create({
+            hora: req.body.hora,
+            data: req.body.data,
+            cod_tipo: req.body.cod_tipo,
+            crm: req.body.crm,
+            cpf: req.body.cpf,
+            laudo_exame: req.body.laudo_exame
+        })
+        
         res.status(201).json({
             status: "success",
-            data: {
-                exame
-            }
+            data: exame
         });
     } catch (err) {
         res.status(400).json({
@@ -67,14 +60,7 @@ exports.createExame = async (req, res) => {
 
 exports.updateExame = async (req, res) => {
     try {
-        let atualizacao = {};
-
-        const keys = Object.keys(req.body);
-        keys.forEach(key => {
-            atualizacao[key] = req.body[key];
-        });
-
-        const exame = await exameModel.updateExame(atualizacao, req.params.cod_exame);
+        
 
         res.status(200).json({
             status: 'success',
@@ -92,13 +78,22 @@ exports.updateExame = async (req, res) => {
 
 exports.deleteExame = async (req, res) => {
     try {
-        const exame = await exameModel.deleteExame(req.params.cod_exame);
+        const resultado = await Exame.destroy({
+            where: {
+                cod_exame: req.params.cod_exame
+            }
+        })
+
+        if (resultado === 0) {
+            res.status(404).json({
+                status: 'fail',
+                message: 'Nenhum exame encontrado para ser deletado.'
+            })
+        }
 
         res.status(200).json({
             status: 'success',
-            data: { 
-                exame
-            }
+            message: 'Exame deletado com sucesso!'
         });
     } catch (err) {
         res.status(404).json({

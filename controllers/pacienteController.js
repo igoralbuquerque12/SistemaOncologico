@@ -1,27 +1,32 @@
-const pacienteModel = require('./../models/pacienteModel')
+const Paciente = require('./../models/paciente')
+const { Op } = require('sequelize')
 
 exports.getPacientes = async (req, res) => {
     try {
-        if (req.query.nome) { // Verifica se o parâmetro nome existe
-            const paciente = await pacienteModel.getPacienteNome(req.query.nome);
-            res.status(200).json({
-                status: "success",
-                data: { pacientes: paciente }
-            });
-        } else if (req.query.cpf) { // Verifica se o parâmetro crm existe
-            const paciente = await pacienteModel.getPacienteCpf(req.query.cpf);
-            res.status(200).json({
-                status: "success",
-                data: { pacientes: paciente }
-            });
-        } else {
-            const paciente = await pacienteModel.getAllPacientes();
-            res.status(200).json({
-                status: "success",
-                data: { pacientes: paciente }
-            });
+        const { nome, cpf } = req.query
+        where = {}
+        if (nome) {
+            where.nome = {
+                [Op.like]: `%${nome}%`
+            }
         }
-        
+        if (cpf) {
+            where.cpf = {
+                [Op.like]: `%${cpf}%`
+            }
+        }
+
+        const pacientes = await Paciente.findAll({
+            where
+        })
+
+        console.log(pacientes)
+        console.log('oi')
+
+        res.status(200).json({
+            status: "success",
+            data: pacientes 
+        });
     } catch (err) {
         res.status(400).json({
             status: "fail",
@@ -32,12 +37,17 @@ exports.getPacientes = async (req, res) => {
 
 exports.createPaciente = async (req, res) => {
     try { 
-        const paciente = await pacienteModel.createPaciente(req.body)
+        const paciente = await Paciente.create({
+            nome: req.body.nome,
+            cpf: req.body.cpf,
+            telefone: req.body.telefone,
+            sexo: req.body.sexo,
+            data_nasc: req.body.data_nasc
+        })
+
         res.status(201).json({
             status: "success",
-            data: {
-                paciente
-            }
+            data: paciente
 
     }) } catch (err) { 
         res.status(400).json ({
@@ -49,22 +59,10 @@ exports.createPaciente = async (req, res) => {
 
 exports.updatePaciente = async (req, res) => {
     try {
-        // Inicializa o objeto de atualizações
-        let atualizacao = {}
-
-        // Preenche o objeto de atualizações com os valores de req.body
-        const keys = Object.keys(req.body)
-        keys.forEach(key => {
-            atualizacao[key] = req.body[key]
-        })
-        console.log(atualizacao)
-        const paciente = await pacienteModel.updatePaciente(atualizacao, req.params.cpf)
-
+        
         res.status(200).json({
             status: 'success',
-            data: { 
-                paciente
-            }
+            data: paciente
         })
     } catch (err) {
         res.status(400).json({
@@ -76,13 +74,22 @@ exports.updatePaciente = async (req, res) => {
 
 exports.deletePaciente = async (req, res) => {
     try {
-        const paciente = await pacienteModel.deletePaciente(req.params.cpf)
+        const resultado = await Paciente.destroy({
+            where: {
+                cpf: req.params.cpf
+            }
+        })
         
+        if (resultado === 0) {
+            res.status(400).json({
+                status: 'fail',
+                message: 'Nenhum médico foi encontrado'
+            })
+        }
+
         res.status(200).json({
             status: 'success',
-            data: { 
-                paciente
-            }
+            message: 'Médico deletado com sucesso!'
         })
     } catch (err) {
         res.status(404).json({

@@ -1,4 +1,4 @@
-const Medico = require('./../models/medicoModel');
+const Medico = require('../models/medico');
 const { Op } = require('sequelize');
 
 exports.getMedicos = async (req, res) => {
@@ -6,19 +6,15 @@ exports.getMedicos = async (req, res) => {
         const { nome, crm } = req.query;
         let where = {};
 
-        // Adiciona condição para o filtro de nome
         if (nome) {
             where.nome = {
                 [Op.like]: `%${nome}%`
             };
         }
-
-        // Adiciona condição para o filtro de CRM
         if (crm) {
-            where.CRM = crm;
+            where.crm = crm;
         }
 
-        // Busca os médicos com base nos filtros aplicados
         const medicos = await Medico.findAll({
             where
         });
@@ -35,38 +31,17 @@ exports.getMedicos = async (req, res) => {
     }
 };
 
-// A P A G A R
-// exports.getAllMedicos = async (req, res) => {
-//     try {
-//         const medicos = await medicoModel.getAllMedicos()
-//         res.status(200).json({
-//             status: 'success',
-//             results: medicos.length,
-//             data: {
-//                 medicos
-//             }
-//         })
-//     } catch (err) {
-//         res.status(400).json({
-//             status: 'fail',
-//             message: err.message
-//         })
-//     }
-// }
-
 exports.createMedico = async (req, res) => {
     try { 
         const medico = await Medico.create({
-            Nome: req.body.Nome,
-            CRM: req.body.CRM,
-            Telefone: req.body.Telefone,
-            Email: req.body.Email
+            nome: req.body.nome,
+            crm: req.body.crm,
+            telefone: req.body.telefone,
+            email: req.body.email
         })
         res.status(201).json({
             status: "success",
-            data: {
-                medico
-            }
+            data: medico
 
     }) } catch (err) { 
         res.status(400).json ({
@@ -82,9 +57,7 @@ exports.updateMedico = async (req, res) => {
 
         res.status(200).json({
             status: 'success',
-            data: { 
-                medico
-            }
+            data: medico
         })
     } catch (err) {
         res.status(400).json({
@@ -98,7 +71,7 @@ exports.deleteMedico = async (req, res) => {
     try {
         const resultado = await Medico.destroy({
             where: {
-                CRM: req.params.CRM
+                crm: req.params.crm
             }
         })
 
