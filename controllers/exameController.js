@@ -35,6 +35,29 @@ exports.getExames = async (req, res) => {
     }
 };
 
+exports.getOneExame = async (req, res) => {
+    try {
+        const exame = await Exame.findByPk(req.params.cod_exame)
+
+        if (!exame) {
+            return res.status(404).json({
+                status: 'fail',
+                message: 'Exame não encontrado.'
+            });
+        }
+
+        res.status(200).json({
+            status: 'success',
+            data: exame
+        });
+    } catch (err) {
+        res.status(400).json({
+            status: "fail",
+            message: err.message
+        });
+    }
+}
+
 exports.createExame = async (req, res) => {
     try {
         const exame = await Exame.create({
@@ -60,13 +83,22 @@ exports.createExame = async (req, res) => {
 
 exports.updateExame = async (req, res) => {
     try {
-        
+        const resultado = await Exame.update(req.body, {
+            where: {
+                cod_exame: req.params.cod_exame
+            }
+        })
+
+        if (resultado === 0) {
+            return res.status(404).json({
+                status: 'fail',
+                message: 'Exame não encontrado.'
+            });
+        }
 
         res.status(200).json({
             status: 'success',
-            data: { 
-                exame
-            }
+            message: 'Exame alterado com sucesso.'
         });
     } catch (err) {
         res.status(400).json({

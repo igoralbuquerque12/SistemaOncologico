@@ -92,3 +92,15 @@ li {
 li span{
 font-weight: bold;
 }
+
+li button {
+  padding: 25px 0px;
+  width: 105px;
+  margin-left: 10px; 
+}
+
+li .buttons-container {
+  display: flex;
+  justify-content: flex-end; 
+  gap: 10px; 
+}

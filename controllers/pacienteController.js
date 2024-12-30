@@ -20,15 +20,36 @@ exports.getPacientes = async (req, res) => {
             where
         })
 
-        console.log(pacientes)
-        console.log('oi')
-
         res.status(200).json({
             status: "success",
             data: pacientes 
         });
     } catch (err) {
         res.status(400).json({
+            status: "fail",
+            message: err.message
+        })
+    }
+}
+
+exports.getOnePaciente = async (req, res) => {
+    try {
+        const paciente = await Paciente.findByPk(req.params.cpf)
+
+        if (!paciente) {
+            return res.status(404).json({
+                status: 'fail',
+                messgae: 'Nenhum paciente foi encontrado.'
+            })
+        }
+
+        res.status(200).json({
+            status: 'success',
+            data: paciente
+        })
+
+    } catch (err) {
+        res.status(400).json ({
             status: "fail",
             message: err.message
         })
@@ -59,10 +80,22 @@ exports.createPaciente = async (req, res) => {
 
 exports.updatePaciente = async (req, res) => {
     try {
-        
+        const [ resultado ] = await Paciente.update(req.body, {
+            where: {
+                cpf: req.params.cpf
+            }
+        })
+
+        if (resultado[0] === 0) {
+            return res.status(404).json({
+                status: 'fail',
+                message: 'Nenhum paciente encontrado com o CPF fornecido.'
+            });
+        }
+
         res.status(200).json({
             status: 'success',
-            data: paciente
+            message: 'Paciente atualizado com sucesso.'
         })
     } catch (err) {
         res.status(400).json({
@@ -83,7 +116,7 @@ exports.deletePaciente = async (req, res) => {
         if (resultado === 0) {
             res.status(400).json({
                 status: 'fail',
-                message: 'Nenhum médico foi encontrado'
+                message: 'Nenhum paciente foi encontrado'
             })
         }
 

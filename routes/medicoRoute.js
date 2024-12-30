@@ -9,6 +9,7 @@ router
 
 router
     .route('/:crm')
+    .get(medicoController.getOneMedico)
     .patch(medicoController.updateMedico)
     .delete(medicoController.deleteMedico)
 

@@ -1,5 +1,6 @@
 const Medico = require('../models/medico');
 const { Op } = require('sequelize');
+const path = require('path')
 
 exports.getMedicos = async (req, res) => {
     try {
@@ -31,6 +32,29 @@ exports.getMedicos = async (req, res) => {
     }
 };
 
+exports.getOneMedico = async (req, res) => {
+    try {
+        const medico = await Medico.findByPk(req.params.crm);
+
+        if (!medico) {
+            return res.status(404).json({
+                status: 'fail',
+                message: 'Médico não encontrado.'
+            });
+        }
+        
+        res.status(200).json({
+            status: 'success',
+            data: medico
+        });
+    } catch (err) {
+        res.status(400).json({
+            status: 'fail',
+            message: err.message
+        });
+    }
+}
+
 exports.createMedico = async (req, res) => {
     try { 
         const medico = await Medico.create({
@@ -53,11 +77,22 @@ exports.createMedico = async (req, res) => {
 
 exports.updateMedico = async (req, res) => {
     try {
-        
+        const resultado = await Medico.update(req.body, {
+            where: {
+                crm: req.params.crm
+            }
+        })
+
+        if (resultado === 0) {
+            return res.status(404).json({
+                status: 'fail',
+                message: 'Nenhum paciente encontrado com o CPF fornecido.'
+            });
+        }
 
         res.status(200).json({
             status: 'success',
-            data: medico
+            message: 'Médico alterado com sucesso.'
         })
     } catch (err) {
         res.status(400).json({

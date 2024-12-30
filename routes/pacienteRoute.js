@@ -9,6 +9,7 @@ router
 
 router
     .route('/:cpf')
+    .get(pacienteController.getOnePaciente)
     .patch(pacienteController.updatePaciente)
     .delete(pacienteController.deletePaciente)
 

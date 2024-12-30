@@ -2,7 +2,7 @@ const medicosList = document.getElementById('medicosList');
 const createMedicoForm = document.getElementById('createMedicoForm');
 
 function loadMedicos() {
-    fetch('/medico')
+    fetch('/api/v1/medico')
         .then(response => response.json())
         .then(data => {
             medicosList.innerHTML = '';
@@ -11,14 +11,29 @@ function loadMedicos() {
                 const li = document.createElement('li');
                 li.innerHTML = `
                     Nome: ${medico.nome} <br> CRM: ${medico.crm} <br> Telefone: ${medico.telefone} <br> Email: ${medico.email}
-                    <button data-crm="${medico.crm}" class="deleteBtn">Deletar</button>
+                    <div class="buttons-container">
+                        <button data-crm="${medico.crm}" class="updateBtn">Atualizar</button>
+                        <button data-crm="${medico.crm}" class="deleteBtn">Deletar</button>
+                    </div>
                 `;
                 medicosList.appendChild(li);
             });
 
             applyDeleteListeners();
+            applyUpdateListeners();
         })
         .catch(err => console.log(err));
+}
+
+function applyUpdateListeners() {
+    document.querySelectorAll('.updateBtn').forEach(button => {
+        button.addEventListener('click', updateMedico)
+    });
+}
+
+function updateMedico(event) {
+    const crm = event.target.getAttribute('data-crm');
+    window.location.href = `/medico/atualizar/${crm}`;
 }
 
 function applyDeleteListeners() {
@@ -30,7 +45,7 @@ function applyDeleteListeners() {
 function deleteMedico(event) {
     const crm = event.target.getAttribute('data-crm');
 
-    fetch(`/medico/${crm}`, {
+    fetch(`/api/v1/medico/${crm}`, {
         method: 'DELETE'
     })
     .then(response => {
@@ -53,7 +68,7 @@ createMedicoForm.addEventListener('submit', function(event) {
         email: document.getElementById('email').value
     };
 
-    fetch('/medico', {
+    fetch('/api/v1/medico', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -72,7 +87,7 @@ document.getElementById('botaoPesquisar').addEventListener('click', function() {
     const tipoBusca = document.getElementById('tipoBusca').value;
     const pesquisarMedico = document.getElementById('pesquisarMedico').value;
 
-    fetch(`/medico?${tipoBusca}=${encodeURIComponent(pesquisarMedico)}`)
+    fetch(`/api/v1/medico?${tipoBusca}=${encodeURIComponent(pesquisarMedico)}`)
             .then(response => response.json())
             .then(data => {
                 medicosList.innerHTML = '';

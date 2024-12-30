@@ -12,14 +12,29 @@ function loadPacientes() {
                 dataFormatada = new Date(paciente.data_nasc)
                 li.innerHTML = `
                     Nome: ${paciente.nome} <br> CPF: ${paciente.cpf} <br> Sexo: ${paciente.sexo} <br> Data de Nascimento: ${dataFormatada.toLocaleDateString('pt-BR')} <br> Número para contato: ${paciente.telefone}
-                    <button data-cpf="${paciente.cpf}" class="deleteBtn">Deletar</button>
+                    <div class="buttons-container">
+                        <button data-cpf="${paciente.cpf}" class="updateBtn">Atualizar</button>
+                        <button data-cpf="${paciente.cpf}" class="deleteBtn">Deletar</button>
+                    </div>
                 `;
                 pacientesList.appendChild(  li);
             });
-
+            applyUpdateListeners()
             applyDeleteListeners();
         })
         .catch(err => console.log(err));
+}
+
+function applyUpdateListeners() {
+    document.querySelectorAll('.updateBtn').forEach(button => {
+        button.addEventListener('click', updatePaciente);
+    })
+}
+
+function updatePaciente(event) {
+    const cpf = event.target.getAttribute('data-cpf');
+    window.location.href = `/paciente/atualizar/${cpf}`;
+    
 }
 
 function applyDeleteListeners() {

@@ -9,6 +9,7 @@ router
 
 router
     .route('/:cod_exame')
+    .get(exameController.getOneExame)
     .patch(exameController.updateExame)
     .delete(exameController.deleteExame)
 
