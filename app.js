@@ -23,9 +23,11 @@ app.use('/', express.static(path.join(__dirname + '/public')))
 const medicoRoute = require('./routes/medicoRoute')
 const pacienteRoute = require('./routes/pacienteRoute')
 const exameRoute = require('./routes/exameRoute')
+const usuarioRoute = require('./routes/usuarioRoute')
 
 app.use(express.json());
 
+app.use('/api/v1/usuario', usuarioRoute)
 app.use('/api/v1/medico', medicoRoute)
 app.use('/api/v1/paciente', pacienteRoute)
 app.use('/api/v1/exame', exameRoute)
