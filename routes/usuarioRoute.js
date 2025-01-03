@@ -3,7 +3,11 @@ const router = express.Router()
 const usuarioController = require('./../controllers/usuarioController')
 
 router
-    .route('/')
+    .route('/cadastro')
     .post(usuarioController.cadastrarUsuario)
+
+router
+    .route('/login')
+    .post(usuarioController.loginUsuario)
 
 module.exports = router

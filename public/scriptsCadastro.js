@@ -8,7 +8,7 @@ document.getElementById('formCadastrarUsuario').addEventListener('submit', funct
         senha: document.getElementById('senha').value
     }
 
-    fetch('/api/v1/usuario', {
+    fetch('/api/v1/usuario/cadastro', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
