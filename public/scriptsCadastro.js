@@ -18,10 +18,9 @@ document.getElementById('formCadastrarUsuario').addEventListener('submit', funct
     .then(response => response.json())
     .then(response => {
         alert(response.message) // Exibe o 'cadastro realizado com sucesso' ou email/usuario já existentes
-        document.getElementById('formCadastrarUsuario').reset()
 
-        if (data.status === 'success') {
-            document.getElementById('formCadastrarUsuario').reset();
+        if (response.status === 'success') {
+            window.location.href='/login.html';
         }
 
     })    

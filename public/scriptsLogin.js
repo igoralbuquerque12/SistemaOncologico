@@ -16,6 +16,11 @@ document.getElementById('formLoginUsuario').addEventListener('submit', function(
     .then(response => response.json())
     .then(response => {
         alert(response.message)
+
+        const token = response.token;
+        sessionStorage.setItem('userName', response.data.usuario)
+        sessionStorage.setItem('jwtToken', token);
+
         if (response.message === 'Login feito com sucesso.') {
             window.location.href = "/"
         }

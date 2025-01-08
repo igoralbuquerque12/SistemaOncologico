@@ -1,13 +1,30 @@
 const pacientesList = document.getElementById('pacientesList');
 const createPacienteForm = document.getElementById('createPacienteForm');
 
+const token = sessionStorage.getItem('jwtToken')
 
 function loadPacientes() {
-    fetch('/api/v1/paciente')
+    fetch('/api/v1/paciente', {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
         .then(response => response.json())
-        .then(data => {          
+        .then(response => {   
+            
+            if (response.message == 'Token inválido ou expirado.' || response.message == 'Requisição não possui parâmetro de autorização.') {
+                window.location.href = '/login.html'
+                alert('Você não está autenticado no sistema. Faça seu login.')
+                return;
+            }
+
+            if (!response || !response.data) {
+                console.error('Formato de resposta inesperado', response);
+                return;
+            }
+            
             pacientesList.innerHTML = '';
-            data.data.forEach(paciente => {
+            response.data.forEach(paciente => {
                 const li = document.createElement('li');
                 dataFormatada = new Date(paciente.data_nasc)
                 li.innerHTML = `
@@ -19,6 +36,7 @@ function loadPacientes() {
                 `;
                 pacientesList.appendChild(  li);
             });
+
             applyUpdateListeners()
             applyDeleteListeners();
         })
@@ -47,6 +65,9 @@ function deletePaciente(event) {
     const cpf = event.target.getAttribute('data-cpf');
 
     fetch(`/api/v1/paciente/${cpf}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        },
         method: 'DELETE'
     })
     .then(response => {
@@ -73,7 +94,8 @@ createPacienteForm.addEventListener('submit', function(event) {
     fetch('/api/v1/paciente', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(pacienteData)
     })
@@ -91,7 +113,11 @@ document.getElementById('botaoPesquisar').addEventListener('click', function() {
     const pesquisarPaciente = document.getElementById('pesquisarPaciente').value;
 
     
-    fetch(`/api/v1/paciente?${tipoBusca}=${encodeURIComponent(pesquisarPaciente)}`)
+    fetch(`/api/v1/paciente?${tipoBusca}=${encodeURIComponent(pesquisarPaciente)}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
         .then(response => response.json())
         .then(data => {
             pacientesList.innerHTML = '';

@@ -1,6 +1,8 @@
 const examesList = document.getElementById('medicosList');
 const createExameForm = document.getElementById('createMedicoForm');
 
+const token = sessionStorage.getItem('jwtToken')
+
 document.getElementById('tipoBusca').addEventListener('change', function() {
     const tipoBusca = this.value
     if (tipoBusca === 'data') {
@@ -11,12 +13,28 @@ document.getElementById('tipoBusca').addEventListener('change', function() {
 })
 
 function loadExames() {
-    fetch('/api/v1/exame')
+    fetch('/api/v1/exame', {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
         .then(response => response.json())
-        .then(data => {
+        .then(response => {
+
+            if (response.message == 'Token inválido ou expirado.' || response.message == 'Requisição não possui parâmetro de autorização.') {
+                window.location.href = '/login.html'
+                alert('Você não está autenticado no sistema. Faça seu login.')
+                return;
+            }
+
+            if (!response || !response.data) {
+                console.error('Formato de resposta inesperado', response);
+                return;
+            }
+
             examesList.innerHTML = ''; 
 
-            data.data.forEach(exame => {
+            response.data.forEach(exame => {
                 const li = document.createElement('li');
                 
                 dataFormatada = new Date(exame.data);
@@ -59,7 +77,10 @@ function deleteExame(event) {
     const cod_exame = event.target.getAttribute('data-cod_exame');
 
     fetch(`/api/v1/exame/${cod_exame}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
     })
     .then(response => {
         if (response.ok) {
@@ -86,7 +107,8 @@ createExameForm.addEventListener('submit', function(event) {
     fetch('/api/v1/exame', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(exameData)
     })
@@ -102,7 +124,11 @@ document.getElementById('botaoPesquisar').addEventListener('click', function() {
     const tipoBusca = document.getElementById('tipoBusca').value;
     let pesquisarExame = document.getElementById('pesquisarExame').value;
 
-    fetch(`/api/v1/exame?${tipoBusca}=${encodeURIComponent(pesquisarExame)}`)
+    fetch(`/api/v1/exame?${tipoBusca}=${encodeURIComponent(pesquisarExame)}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
         .then(response => response.json())
         .then(data => {
             examesList.innerHTML = '';
