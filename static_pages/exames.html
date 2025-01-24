@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD de Exame</title>
+  <link rel="stylesheet" href="./../public/css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Gerenciar Exame</h1>
+    
+    <h2>Adicionar Novo Exame</h2>
+    <form id="createMedicoForm">
+      <input type="text" id="tipo" placeholder="Tipo de Exame" required>
+      <input type="time" id="hora" placeholder="Hora" required>
+      <input type="date" id="data" placeholder="Data" required>
+      <input type="text" id="cpf" placeholder="CPF" required>
+      <input type="text" id="crm" placeholder="CRM" required>
+      <input type="text" id="laudo" placeholder="Laudo do Exame" required>
+      <button type="submit">Cadastrar Exame</button>
+    </form>
+
+    <h2>Lista de Exame</h2>
+
+    <div class="search-container">
+        <select id="tipoBusca">
+          <option value="cod_tipo">Tipo de exame</option>
+          <option value="data">Data</option>
+          <option value="cpf">CPF</option>
+          <option value="crm">CRM</option>
+        </select>
+        <input type="text" id="pesquisarExame" placeholder="Pesquisar por um Exame...">
+        <button id="botaoPesquisar">Pesquisar</button>
+    </div>
+
+    <ul id="medicosList"></ul>
+
+    <button onclick="window.location.href='/'">Voltar</button>
+  </div>
+
+  <script src="./../public/js/scriptsExames.js"></script>
+</body>
+</html>

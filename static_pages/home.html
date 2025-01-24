@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Oncológica</title>
+    <link rel="stylesheet" href="./../public/css/styles.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-content">
+            <div class="nav-logo">
+                <img src="./../public/images/logoClinica.png" alt="Logo da clínica" class="nav-logo-img">
+            </div>
+            <div class="nav-auth">
+                <a href="login/">
+                    <button id="loginBtn" class="auth-btn"><i class="fas fa-user"></i> Login</button>
+                </a>
+                <a href="cadastro/">
+                    <button id="registerBtn" class="auth-btn"><i class="fas fa-user-plus"></i> Cadastro</button>
+                </a>
+
+                <div id="userArea" class="user-area" style="display: none;">
+                    <span class="username"><i class="fas fa-user-circle"></i> <span id="userName">Usuário</span></span>
+                    <button id="logout-btn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Sair</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <br><br><br><br><br>
+    <div class="container">
+        <header>
+            <h1>Bem-vindo à Clínica Oncológica</h1>
+        </header>
+        <main>
+            <div class="button-container">
+                <button onclick="window.location.href='exames/'"><i class="fas fa-microscope"></i> Exames</button>
+                <button onclick="window.location.href='pacientes/'"><i class="fas fa-users"></i> Pacientes</button>
+                <button onclick="window.location.href='medicos/'"><i class="fas fa-user-md"></i> Médicos</button>
+                <button onclick="window.location.href='tipoExames/'"><i class="fas fa-list-alt"></i> Tipos de Exame</button>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2024 Clínica Oncológica. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+    <script src="./../public/js/scriptsHome.js"></script>
+</body>
+</html>

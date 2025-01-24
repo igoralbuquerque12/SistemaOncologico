@@ -1,5 +1,8 @@
 const Paciente = require('./../models/paciente')
+const Auditoria = require('./../models/auditoria')
+const { sequelize } = require('../config/database')
 const { Op } = require('sequelize')
+const jwt = require('jsonwebtoken')
 
 exports.getPacientes = async (req, res) => {
     try {
@@ -57,7 +60,37 @@ exports.getOnePaciente = async (req, res) => {
 }
 
 exports.createPaciente = async (req, res) => {
+    const t = await sequelize.transaction();
+
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+        return res.status(401).json({
+            status: 'fail',
+            message: 'Token de autenticação não fornecido.'
+        });
+    }
+
+    const decode = jwt.decode(token);
+    if (!decode || !decode.usuario) {
+        return res.status(404).json({
+            status: 'fail',
+            message: 'Usuário não encontrado.'
+        });
+    }
+
+    const data = new Date();
+     
     try { 
+        await Auditoria.create({
+            entidade: 'pacientes',
+            acao: 'create',
+            dados_novos: req.body,
+            usuario_id: decode.id,
+            data: data
+        }, {
+            transaction: t
+        })
+
         const paciente = await Paciente.create({
             nome: req.body.nome,
             cpf: req.body.cpf,
@@ -66,11 +99,14 @@ exports.createPaciente = async (req, res) => {
             data_nasc: req.body.data_nasc
         })
 
+        t.commit();
+
         res.status(201).json({
             status: "success",
             data: paciente
 
     }) } catch (err) { 
+        t.rollback();
         res.status(400).json ({
             status: "fail",
             message: err.message
@@ -79,25 +115,64 @@ exports.createPaciente = async (req, res) => {
 }
 
 exports.updatePaciente = async (req, res) => {
+
+    const t = await sequelize.transaction();
+
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+        return res.status(401).json({
+            status: 'fail',
+            message: 'Token de autenticação não fornecido.'
+        });
+    }
+
+    const decode = jwt.decode(token);
+    if (!decode || !decode.usuario) {
+        return res.status(404).json({
+            status: 'fail',
+            message: 'Usuário não encontrado.'
+        });
+    }
+
+    const data = new Date();
+
     try {
-        const [ resultado ] = await Paciente.update(req.body, {
-            where: {
-                cpf: req.params.cpf
-            }
+
+        const registroAnterior = await Paciente.findByPk(req.params.cpf, {
+            transaction: t
+        });
+        
+        await Auditoria.create({
+            entidade: 'pacientes',
+            acao: 'update',
+            dados_anteriores: registroAnterior,
+            dados_novos: req.body,
+            usuario_id: decode.id,
+            data: data
+        }, {
+            transaction: t
         })
 
-        if (resultado[0] === 0) {
+        const [updatedRows] = await Paciente.update(req.body, {
+            where: { cpf: req.params.cpf },
+            transaction: t
+        });
+        
+        if (updatedRows === 0) {
             return res.status(404).json({
                 status: 'fail',
                 message: 'Nenhum paciente encontrado com o CPF fornecido.'
             });
         }
 
+        await t.commit();
+
         res.status(200).json({
             status: 'success',
-            message: 'Paciente atualizado com sucesso.'
+            message: 'Paciente alterado com sucesso.'
         })
     } catch (err) {
+        await t.rollback();
         res.status(400).json({
             status: 'fail',
             message: err.message
@@ -106,11 +181,46 @@ exports.updatePaciente = async (req, res) => {
 }
 
 exports.deletePaciente = async (req, res) => {
+    const t = await sequelize.transaction();
+
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+        return res.status(401).json({
+            status: 'fail',
+            message: 'Token de autenticação não fornecido.'
+        });
+    }
+
+    const decode = jwt.decode(token);
+    if (!decode || !decode.usuario) {
+        return res.status(404).json({
+            status: 'fail',
+            message: 'Usuário não encontrado.'
+        });
+    }
+
+    const data = new Date();
+
     try {
+        const registroAnterior = await Paciente.findByPk(req.params.cpf, {
+            transaction: t
+        })
+
+        await Auditoria.create({
+            entidade: 'pacientes',
+            acao: 'delete',
+            dados_anteriores: registroAnterior,
+            usuario_id: decode.id,
+            data: data
+        }, {
+            transaction: t
+        })
+
         const resultado = await Paciente.destroy({
             where: {
                 cpf: req.params.cpf
-            }
+            },
+            transaction: t
         })
         
         if (resultado === 0) {
@@ -120,11 +230,14 @@ exports.deletePaciente = async (req, res) => {
             })
         }
 
+        t.commit();
+
         res.status(200).json({
             status: 'success',
             message: 'Médico deletado com sucesso!'
         })
     } catch (err) {
+        t.rollback();
         res.status(404).json({
             status: 'fail',
             message: err.message

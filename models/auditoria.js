@@ -1,23 +1,41 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class Auditoria extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
+const { sequelize } = require('../config/database');
+const { DataTypes } = require('sequelize');
+
+const Auditoria = sequelize.define(
+    'Auditoria', {
+        entidade: {
+            type: DataTypes.STRING(50),
+            allowNull: false
+        },
+        acao: {
+            type: DataTypes.STRING(20),
+            allowNull: false
+        },
+        dados_anteriores: {
+            type: DataTypes.JSON, 
+            allowNull: true
+        },
+        dados_novos: {
+            type: DataTypes.JSON, 
+            allowNull: true
+        },
+        usuario_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'usuarios', 
+                key: 'id'
+            }
+        },
+        data: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW 
+        }
+    }, { 
+        tableName: 'auditorias',
+        timestamps: false  
     }
-  }
-  Auditoria.init({
-    entidade: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Auditoria',
-  });
-  return Auditoria;
-};
+);
+
+module.exports = Auditoria;

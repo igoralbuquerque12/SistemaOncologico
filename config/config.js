@@ -1,4 +1,4 @@
-const { dbConfig } = require('./../models/dbS')
+const { dbConfig } = require('./database')
 
 module.exports = {
     development: dbConfig,

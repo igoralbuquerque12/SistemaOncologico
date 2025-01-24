@@ -1,4 +1,7 @@
 const Exame = require('./../models/exame');
+const { sequelize } = require('../config/database')
+const Auditoria = require('./../models/auditoria')
+const jwt = require('jsonwebtoken');
 
 exports.getExames = async (req, res) => {
     try {
@@ -59,7 +62,37 @@ exports.getOneExame = async (req, res) => {
 }
 
 exports.createExame = async (req, res) => {
-    try {
+    const t = await sequelize.transaction();
+
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+        return res.status(401).json({
+            status: 'fail',
+            message: 'Token de autenticação não fornecido.'
+        });
+    }
+
+    const decode = jwt.decode(token);
+    if (!decode || !decode.usuario) {
+        return res.status(404).json({
+            status: 'fail',
+            message: 'Usuário não encontrado.'
+        });
+    }
+
+    const data = new Date();
+     
+    try { 
+        await Auditoria.create({
+            entidade: 'exames',
+            acao: 'create',
+            dados_novos: req.body,
+            usuario_id: decode.id,
+            data: data
+        }, {
+            transaction: t
+        })
+
         const exame = await Exame.create({
             hora: req.body.hora,
             data: req.body.data,
@@ -67,12 +100,16 @@ exports.createExame = async (req, res) => {
             crm: req.body.crm,
             cpf: req.body.cpf,
             laudo_exame: req.body.laudo_exame
+        }, {
+            transaction: t    
         })
-        
+
+        await t.commit();
+
         res.status(201).json({
             status: "success",
             data: exame
-        });
+        })
     } catch (err) {
         res.status(400).json({
             status: "fail",
@@ -82,25 +119,62 @@ exports.createExame = async (req, res) => {
 };
 
 exports.updateExame = async (req, res) => {
+    const t = await sequelize.transaction();
+
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+        return res.status(401).json({
+            status: 'fail',
+            message: 'Token de autenticação não fornecido.'
+        });
+    }
+
+    const decode = jwt.decode(token);
+    if (!decode || !decode.usuario) {
+        return res.status(404).json({
+            status: 'fail',
+            message: 'Usuário não encontrado.'
+        });
+    }
+
+    const data = new Date();
+
     try {
-        const resultado = await Exame.update(req.body, {
-            where: {
-                cod_exame: req.params.cod_exame
-            }
+        const registroAnterior = await Exame.findByPk(req.params.cod_exame, {
+            transaction: t
+        });
+        
+        await Auditoria.create({
+            entidade: 'exames',
+            acao: 'update',
+            dados_anteriores: registroAnterior,
+            dados_novos: req.body,
+            usuario_id: decode.id,
+            data: data
+        }, {
+            transaction: t
         })
 
-        if (resultado === 0) {
+        const [updatedRows] = await Exame.update(req.body, {
+            where: { cod_exame: req.params.cod_exame },
+            transaction: t
+        });
+        
+        if (updatedRows === 0) {
             return res.status(404).json({
                 status: 'fail',
-                message: 'Exame não encontrado.'
+                message: 'Nenhum exame encontrado com o código fornecido.'
             });
         }
+
+        await t.commit();
 
         res.status(200).json({
             status: 'success',
             message: 'Exame alterado com sucesso.'
         });
     } catch (err) {
+        t.rollback();
         res.status(400).json({
             status: 'fail',
             message: err.message
@@ -109,25 +183,63 @@ exports.updateExame = async (req, res) => {
 };
 
 exports.deleteExame = async (req, res) => {
+    const t = await sequelize.transaction();
+
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+        return res.status(401).json({
+            status: 'fail',
+            message: 'Token de autenticação não fornecido.'
+        });
+    }
+
+    const decode = jwt.decode(token);
+    if (!decode || !decode.usuario) {
+        return res.status(404).json({
+            status: 'fail',
+            message: 'Usuário não encontrado.'
+        });
+    }
+
+    const data = new Date();
+
     try {
+        const registroAnterior = await Exame.findByPk(req.params.cod_exame, {
+            transaction: t
+        })
+
+        await Auditoria.create({
+            entidade: 'exames',
+            acao: 'delete',
+            dados_anteriores: registroAnterior,
+            usuario_id: decode.id,
+            data: data
+        }, {
+            transaction: t
+        })
+
         const resultado = await Exame.destroy({
             where: {
                 cod_exame: req.params.cod_exame
-            }
+            },
+            transaction: t
         })
-
+        
         if (resultado === 0) {
-            res.status(404).json({
+            res.status(400).json({
                 status: 'fail',
-                message: 'Nenhum exame encontrado para ser deletado.'
+                message: 'Nenhum exame foi encontrado'
             })
         }
+
+        t.commit();
 
         res.status(200).json({
             status: 'success',
             message: 'Exame deletado com sucesso!'
-        });
+        })
     } catch (err) {
+        t.rollback();
         res.status(404).json({
             status: 'fail',
             message: err.message

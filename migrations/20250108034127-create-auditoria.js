@@ -8,34 +8,37 @@ module.exports = {
         autoIncrement: true,
       },
       entidade: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
         allowNull: false,
       },
       acao: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(20),
         allowNull: false,
       },
       dados_anteriores: {
-        type: Sequelize.JSONB,  // ou JSON, dependendo do banco
+        type: Sequelize.JSON, 
         allowNull: true,
       },
       dados_novos: {
-        type: Sequelize.JSONB,  // ou JSON
+        type: Sequelize.JSON, 
         allowNull: true,
       },
       usuario_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'usuarios',  // Supondo que você tenha a tabela usuarios
+          model: 'usuarios', 
           key: 'id',
         },
       },
       data: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW,  // ou usar o valor atual diretamente
-      },
+        defaultValue: Sequelize.NOW, 
+      }
+    }, {
+      tableName: 'auditorias',
+      timestamps: false
     });
   },
 

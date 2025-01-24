@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD de Médicos</title>
+  <link rel="stylesheet" href="./../public/css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Gerenciar Médicos</h1>
+    
+    <h2>Adicionar Novo Médico</h2>
+    <form id="createMedicoForm">
+      <input type="text" id="nome" placeholder="Nome do Médico" required>
+      <input type="text" id="crm" placeholder="CRM" required>
+      <input type="text" id="telefone" placeholder="Telefone" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <button type="submit">Cadastrar Médico</button>
+    </form>
+
+    <h2>Lista de Médicos</h2>
+
+    <div class="search-container">
+        <select id="tipoBusca">
+          <option value="nome">Nome</option>
+          <option value="crm">CRM</option>
+        </select>
+        <input type="text" id="pesquisarMedico" placeholder="Pesquisar por um médico...">
+        <button id="botaoPesquisar">Pesquisar</button>
+    </div>
+
+    <ul id="medicosList"></ul>
+
+    <button onclick="window.location.href='/'">Voltar</button>
+  </div>
+
+  <script src="./../public/js/scriptsMedicos.js"></script>
+</body>
+</html>

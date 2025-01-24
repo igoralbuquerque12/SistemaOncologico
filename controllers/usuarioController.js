@@ -50,6 +50,7 @@ exports.cadastrarUsuario = async (req, res) => {
 }
 
 exports.loginUsuario = async (req, res) => {
+    console.log('chegou')
     const { usuario, senha } = req.body;
 
     const usuarioEncontrado = await Usuario.findOne({

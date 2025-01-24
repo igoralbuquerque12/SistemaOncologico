@@ -1,3 +1,4 @@
+/* Reset e estilos base */
 * {
     margin: 0;
     padding: 0;
@@ -6,19 +7,37 @@
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f0f0f0;
+    background-color: #f4f4f4;
     min-height: 100vh;
+    padding: 20px;
 }
 
-/* Navegação superior */
+/* Container principal */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Cabeçalhos */
+h1, h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Barra de navegação superior */
 .top-nav {
     width: 100%;
     background-color: #ffffff;
     padding: 10px 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 .nav-content {
@@ -31,11 +50,11 @@ body {
 }
 
 .nav-logo-img {
-    height: 25%;
-    width: 35%;
-    object-fit: contain; /* mantém a proporção da imagem */
+    height: 50px;
+    object-fit: contain;
 }
 
+/* Área de autenticação */
 .nav-auth {
     display: flex;
     gap: 10px;
@@ -43,7 +62,7 @@ body {
 }
 
 .auth-btn {
-    background-color: #0f3a3a;
+    background-color: #134d4e;
     color: white;
     border: none;
     padding: 8px 15px;
@@ -56,24 +75,17 @@ body {
 }
 
 .auth-btn:hover {
-    background-color: #1a5e5e;
+    background-color: #0f3a3a;
 }
 
 .user-area {
-    background-color: #0f3a3a;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
 .username {
-    color: white;
+    color: #134d4e;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -81,8 +93,8 @@ body {
 
 .logout-btn {
     background-color: transparent;
-    color: white;
-    border: 1px solid white;
+    color: #134d4e;
+    border: 1px solid #134d4e;
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
@@ -93,133 +105,139 @@ body {
 }
 
 .logout-btn:hover {
-    background-color: white;
-    color: #134d4e;
+    background-color: #134d4e;
+    color: white;
 }
 
-/* Container principal */
-.container {
-    width: 90%;
-    max-width: 800px;
-    text-align: center;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    margin-top: 20px;
+/* Formulários */
+form {
+    margin-bottom: 30px;
 }
 
-header h1 {
-    color: #333;
-    margin-bottom: 20px;
-    font-size: 1.8rem;
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
 }
 
+/* Botões */
+button {
+    padding: 10px 15px;
+    font-weight: 600;
+    background-color: #134d4e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+
+button:hover {
+    background-color: #0f3a3a;
+}
+
+/* Container de botões na página inicial */
 .button-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-top: 20px;
+    margin: 20px 0;
 }
 
 .button-container button {
-    background-color: #134d4e;
-    color: #ffffff;
-    border: none;
+    width: 100%;
     padding: 15px;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 1.1rem;
+}
+
+/* Lista de itens */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 15px;
+    margin: 8px 0;
+    background-color: #f8f8f8;
+    border-radius: 4px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+li .buttons-container {
+    display: flex;
     gap: 10px;
 }
 
-.button-container button:hover {
-    background-color: #0f3a3a;
+/* Área de pesquisa */
+.search-container {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    align-items: center;
 }
 
-/* Modal de Login */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+#tipoBusca {
+    width: auto;
+    min-width: 120px;
 }
 
-.modal-content {
-    position: relative;
-    background-color: white;
-    margin: 15% auto;
-    padding: 20px;
-    width: 90%;
-    max-width: 400px;
-    border-radius: 10px;
+#pesquisarPaciente,
+#pesquisarMedico {
+    flex: 1;
 }
 
-.close-button {
-    position: absolute;
-    right: 20px;
-    top: 10px;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    text-align: left;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.submit-btn {
-    width: 100%;
-    padding: 10px;
-    background-color: #134d4e;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.submit-btn:hover {
-    background-color: #0f3a3a;
-}
-
+/* Footer */
 footer {
-    margin-top: 20px;
-    color: #777;
+    margin-top: 30px;
+    text-align: center;
+    color: #666;
     font-size: 0.9rem;
 }
 
 /* Responsividade */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        margin: 10px;
+    }
+
     .nav-content {
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
     }
 
     .nav-auth {
         width: 100%;
         justify-content: center;
+        flex-wrap: wrap;
     }
 
-    .modal-content {
-        margin: 30% auto;
+    .search-container {
+        flex-direction: column;
+    }
+
+    #tipoBusca {
+        width: 100%;
+    }
+
+    li {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    li .buttons-container {
+        width: 100%;
+        justify-content: center;
     }
 }
