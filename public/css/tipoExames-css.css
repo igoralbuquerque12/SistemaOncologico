@@ -1,0 +1,79 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: calc(16px + 3px);
+    background-color: #F2EFE7;
+}
+
+.container-tipoExames {
+    margin-top: 60px;
+    width: 80%;
+    max-width: 1200px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container-tipoExames h1 {
+    text-align: center;
+    color: #000000;
+    margin-bottom: 40px;
+    font-size: 2em; 
+}
+
+.table-tipoExames {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.table-tipoExames th, .table-tipoExames td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.table-tipoExames th {
+    background-color: #134d4e;
+    color: white;
+}
+
+.table-tipoExames tr:hover {
+    background-color: #f1f1f1;
+}
+
+.btn-voltar-tipoExames {
+    background-color: #134d4e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.btn-voltar-tipoExames:hover {
+    background-color: #0f3c3d;
+}
+
+.footer-tipoExames {
+    font-family: Arial, Helvetica, sans-serif;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0f3a3a;
+    color: white;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 16px;
+    margin: 0; 
+    box-sizing: border-box; 
+    font-weight: 500;
+}

@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD de Pacientes</title>
-    <link rel="stylesheet" href="./../public/css/styles.css">
+    <link rel="stylesheet" href="./../public/css/entidades-css.css">
 </head>
 <body>
     <div class="container">
         <h1>Gerenciar Pacientes</h1>
         
         <h2>Adicionar Novo Paciente</h2>
-        <form id="createPacienteForm">
+        <form id="createEntidadeForm">
             <input type="text" id="nome" placeholder="Nome do Paciente" required>
             <input type="text" id="cpf" placeholder="CPF" required>
             <input type="date" id="data_nasc" placeholder="Data de Nascimento" required>
             <input type="text" id="sexo" placeholder="Sexo" required>
             <input type="text" id="telefone" placeholder="Telefone" required>
             <button type="submit">Cadastrar Paciente</button>
-        </form>
+        </form><br><br>
 
         <h2>Lista de Pacientes</h2>
 
@@ -27,11 +27,11 @@
                 <option value="nome">Nome</option>
                 <option value="cpf">CPF</option>
             </select>
-            <input type="text" id="pesquisarPaciente" placeholder="Pesquisar por um paciente...">
+            <input type="text" id="pesquisarEntidade" placeholder="Pesquisar por um paciente...">
             <button id="botaoPesquisar">Pesquisar</button>
         </div>
 
-        <ul id="pacientesList"></ul>`
+        <ul id="entidadesList"></ul>`
 
         <button onclick="window.location.href='/'">Voltar</button>
     </div>

@@ -33,7 +33,7 @@ function loadDataExame() {
     .catch(err => console.log(`Erro ao encontrar o exame: ${err.message}`))
 }
 
-document.getElementById('updateExameForm').addEventListener('submit', function(event) {
+document.getElementById('updateEntidadeForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     let confirmar = confirm('Você confirma as alterações?')

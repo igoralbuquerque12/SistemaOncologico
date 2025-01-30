@@ -3,124 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #f0f0f0;
-        }
-
-        .image-container {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .clinic-image {
-            max-width: 220px;
-            height: auto;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 800px;
-            text-align: center;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            margin-top: -20px;
-        }
-
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 1rem;
-            color: #333;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .button-container button {
-            background-color: #134d4e;
-            color: #ffffff;
-            border: none;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .button-container button:hover {
-            background-color: #0f3a3a;
-        }
-
-        footer {
-            margin-top: 20px;
-            color: #777;
-            font-size: 0.9rem;
-        }
-    </style>
+    <link rel="stylesheet" href="./../public/css/login-cadastro-css.css">
+    <title>Login</title>
+   
 </head>
 <body>
-    <div class="image-container">
-        <img class="clinic-image" src="./../public/images/logoClinica.png" alt="Logo Clínica">
-    </div>
-    <div class="container">
-        <h2>Cadastro</h2>
-        <form id="formCadastrarUsuario" action="/cadastro" method="POST">
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required><br><br>
+<main>
+ <section class="container__login">
+    <div class="login__section">
+        <img class="logo__image" src="./../public/images/logoClinicaPreta.png" alt="Logo Clínica">
+        <h2>Acesse sua conta</h2>
+        <form class="form-cadastro" action="/login" id="formLoginUsuario" method="POST">
+            <label class="label" for="usuario">Nome</label>
+            <input class="input" type="text" id="usuario" name="usuario" required placeholder="Digite seu usuario"><br><br>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br><br>
+            <label class="label" for="usuario">E-mail</label>
+            <input class="input" type="text" id="usuario" name="usuario" required placeholder="Digite seu usuario"><br><br>
 
-            <label for="usuario">Usuário:</label>
-            <input type="text" id="usuario" name="usuario" required><br><br>
+            <label class="label" for="usuario">Usuário</label>
+            <input class="input" type="text" id="usuario" name="usuario" required placeholder="Digite seu usuario"><br><br>
 
-            <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" required><br><br>
+            <label class="label" for="senha">Senha</label>
+            <input class="input" type="password" id="senha" name="senha" required required placeholder="Digite sua senha"><br><br>
 
             <div class="button-container">
-                <button type="submit">Cadastrar</button>
+                <button type="submit">Entrar</button>
+                <p>Já possui uma conta? <a href="/login/">Clique aqui para logar-se!</a></p>
             </div>
         </form>
-        <footer>
-            <p>Já tem uma conta? <a href="/login/">Faça login aqui</a></p>
-        </footer>
     </div>
-
-    <script src="./../public/js/scriptsCadastro.js"></script>
+    <div class="login__ilustration">
+        <img src="./../public/images/woman-doctor.png" alt=" ilustração de médica">
+    </div>
+ </section>
+</main>
+    <script src="./../public/js/scriptsLogin.js"></script>
 </body>
 </html>

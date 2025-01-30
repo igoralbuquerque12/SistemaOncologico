@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CRUD de Exame</title>
-  <link rel="stylesheet" href="./../public/css/styles.css">
+  <link rel="stylesheet" href="./../public/css/entidades-css.css">
 </head>
 <body>
   <div class="container">
     <h1>Gerenciar Exame</h1>
     
     <h2>Adicionar Novo Exame</h2>
-    <form id="createMedicoForm">
+    <form id="createEntidadeForm">
       <input type="text" id="tipo" placeholder="Tipo de Exame" required>
       <input type="time" id="hora" placeholder="Hora" required>
       <input type="date" id="data" placeholder="Data" required>
@@ -19,9 +19,9 @@
       <input type="text" id="crm" placeholder="CRM" required>
       <input type="text" id="laudo" placeholder="Laudo do Exame" required>
       <button type="submit">Cadastrar Exame</button>
-    </form>
+    </form><br><br>
 
-    <h2>Lista de Exame</h2>
+    <h2>Lista de Exames</h2>
 
     <div class="search-container">
         <select id="tipoBusca">
@@ -30,11 +30,11 @@
           <option value="cpf">CPF</option>
           <option value="crm">CRM</option>
         </select>
-        <input type="text" id="pesquisarExame" placeholder="Pesquisar por um Exame...">
+        <input type="text" id="pesquisarEntidade" placeholder="Pesquisar por um Exame...">
         <button id="botaoPesquisar">Pesquisar</button>
     </div>
 
-    <ul id="medicosList"></ul>
+    <ul id="entidadesList"></ul>
 
     <button onclick="window.location.href='/'">Voltar</button>
   </div>

@@ -1,0 +1,260 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    background-color: #F2EFE7;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto 20px;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Cabeçalho "Gerenciar Médicos" */
+.container h1 {
+    font-family: 'Poppins', sans-serif;
+    color: #0f3a3a;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 3.4em; /* Aumentado em 3px */
+    font-weight: 800;
+
+}
+
+#createEntidadeContainer,
+#entidadesListContainer {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px; 
+}
+
+.container h2 {
+    font-family: 'Poppins', sans-serif;
+    color: #0f3a3a;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2em; 
+    font-weight: 700;
+    width: 100%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Formulário de Adicionar Médico */
+#createEntidadeForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#createEntidadeForm input {
+    padding: 15px; /* Aumentado o padding */
+    border: 2px solid #0f3a3a;
+    border-radius: 8px;
+    font-size: 18px; /* Aumentado em 3px */
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#createEntidadeForm input:focus {
+    border-color: #185858;
+}
+
+#createEntidadeForm button {
+    padding: 15px;
+    background-color: #0f3a3a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px; /* Aumentado em 3px */
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#createMedicoForm button:hover {
+    background-color: #185858;
+}
+
+.search-container {
+    display: flex;
+    gap: 15px; 
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+#tipoBusca {
+    padding: 18px; 
+    border: 2px solid #0f3a3a;
+    border-radius: 10px;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    background-color: white;
+    cursor: pointer;
+    width: 250px; 
+    height: 60px;
+}
+
+#pesquisarEntidade {
+    padding: 18px; 
+    border: 2px solid #0f3a3a; 
+    border-radius: 10px; 
+    font-size: 18px; 
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    background-color: white;
+    transition: border-color 0.3s ease;
+    width: 100%; 
+    max-width: 640px; 
+    height: 60px;
+}
+
+#pesquisarEntidade:focus {
+    border-color: #185858; 
+}
+
+#botaoPesquisar {
+    padding: 18px 40px; 
+    background-color: #0f3a3a;
+    color: white;
+    border: none;
+    border-radius: 10px; /* Bordas arredondadas */
+    font-size: 20px; /* Tamanho da fonte aumentado */
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 60px; /* Altura maior */
+    width: auto; /* Ajuste para não expandir demais */
+}
+
+#botaoPesquisar:hover {
+    background-color: #185858;
+}
+
+
+/* Lista de Médicos */
+#entidadesList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#entidadesList li {
+    background-color: white;
+    border: 2px solid #0f3a3a;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    font-family: 'Poppins', sans-serif;
+    color: #0f3a3a;
+    transition: box-shadow 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#entidadesList li:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.content-js {
+    font-size: 20px; /* Aumentado em 3px */
+    font-weight: 500;
+    width: 100%;
+    max-width: 800px;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 10px;
+}
+
+.updateBtn, .deleteBtn {
+    padding: 15px 25px; /* Aumentado o tamanho */
+    border: none;
+    border-radius: 8px;
+    font-size: 18px; /* Aumentado em 3px */
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.updateBtn {
+    background-color: #0f3a3a;
+    color: white;
+}
+
+.updateBtn:hover {
+    background-color: #185858;
+}
+
+.deleteBtn {
+    background-color: #d9534f;
+    color: white;
+}
+
+.deleteBtn:hover {
+    background-color: #c9302c;
+}
+
+/* Botão Voltar */
+.container button[onclick] {
+    padding: 15px 30px;
+    background-color: #0f3a3a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px; /* Aumentado em 3px */
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.container button[onclick]:hover {
+    background-color: #185858;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 100px 20px 20px;
+        padding: 20px;
+    }
+
+    .search-container {
+        flex-direction: column;
+    }
+
+    #botaoPesquisar {
+        width: 100%;
+    }
+
+    #entidadesList li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .buttons-container {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 15px;
+    }
+}
+

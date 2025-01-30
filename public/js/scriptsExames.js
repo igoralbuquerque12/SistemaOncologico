@@ -1,14 +1,14 @@
-const examesList = document.getElementById('medicosList');
-const createExameForm = document.getElementById('createMedicoForm');
+const examesList = document.getElementById('entidadesList');
+const createExameForm = document.getElementById('createEntidadeForm');
 
 const token = sessionStorage.getItem('jwtToken')
 
 document.getElementById('tipoBusca').addEventListener('change', function() {
     const tipoBusca = this.value
     if (tipoBusca === 'data') {
-        document.getElementById('pesquisarExame').type = 'date'
+        document.getElementById('pesquisarEntidade').type = 'date'
     } else {
-        document.getElementById('pesquisarExame').type = 'text'
+        document.getElementById('pesquisarEntidade').type = 'text'
     }
 })
 
@@ -41,7 +41,9 @@ function loadExames() {
                 horaFormatada = exame.hora.split(':').slice(0, 2).join(':');
                 
                 li.innerHTML = `
-                    Tipo: ${exame.cod_tipo} <br> Data: ${dataFormatada.toLocaleDateString('pt-BR')} - ${horaFormatada} <br> Paciente: ${exame.cpf} | Médico responsável: ${exame.crm} <br> Laudo: ${exame.laudo_exame} 
+                    <div class='content-js'>
+                        Tipo: ${exame.cod_tipo} <br> Data: ${dataFormatada.toLocaleDateString('pt-BR')} - ${horaFormatada} <br> Paciente: ${exame.cpf} | Médico responsável: ${exame.crm} <br> Laudo: ${exame.laudo_exame} 
+                    </div>
                     <div class="buttons-container">
                         <button data-cod_exame="${exame.cod_exame}" class="updateBtn">Atualizar</button>
                         <button data-cod_exame="${exame.cod_exame}" class="deleteBtn">Deletar</button>
@@ -122,9 +124,9 @@ createExameForm.addEventListener('submit', function(event) {
 
 document.getElementById('botaoPesquisar').addEventListener('click', function() {
     const tipoBusca = document.getElementById('tipoBusca').value;
-    let pesquisarExame = document.getElementById('pesquisarExame').value;
+    let pesquisarEntidade = document.getElementById('pesquisarEntidade').value;
 
-    fetch(`/api/v1/exame?${tipoBusca}=${encodeURIComponent(pesquisarExame)}`, {
+    fetch(`/api/v1/exame?${tipoBusca}=${encodeURIComponent(pesquisarEntidade)}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }

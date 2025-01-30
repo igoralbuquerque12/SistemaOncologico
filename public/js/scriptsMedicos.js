@@ -1,4 +1,4 @@
-const medicosList = document.getElementById('medicosList');
+const medicosList = document.getElementById('entidadesList');
 const createMedicoForm = document.getElementById('createMedicoForm');
 
 const token = sessionStorage.getItem('jwtToken');
@@ -28,7 +28,9 @@ function loadMedicos() {
             response.data.forEach(medico => {
                 const li = document.createElement('li');
                 li.innerHTML = `
-                    Nome: ${medico.nome} <br> CRM: ${medico.crm} <br> Telefone: ${medico.telefone} <br> Email: ${medico.email}
+                    <div class='content-js'>
+                        Nome: ${medico.nome} <br> CRM: ${medico.crm} <br> Telefone: ${medico.telefone} <br> Email: ${medico.email}
+                    </div>
                     <div class="buttons-container">
                         <button data-crm="${medico.crm}" class="updateBtn">Atualizar</button>
                         <button data-crm="${medico.crm}" class="deleteBtn">Deletar</button>
@@ -79,7 +81,7 @@ function deleteMedico(event) {
     .catch(err => console.log(err));
 }
 
-createMedicoForm.addEventListener('submit', function(event) {
+createEntidadeForm.addEventListener('submit', function(event) {
     event.preventDefault();
 
     const medicoData = {

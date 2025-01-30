@@ -1,4 +1,4 @@
-const pacientesList = document.getElementById('pacientesList');
+const pacientesList = document.getElementById('entidadesList');
 const createPacienteForm = document.getElementById('createPacienteForm');
 
 const token = sessionStorage.getItem('jwtToken')
@@ -28,7 +28,9 @@ function loadPacientes() {
                 const li = document.createElement('li');
                 dataFormatada = new Date(paciente.data_nasc)
                 li.innerHTML = `
-                    Nome: ${paciente.nome} <br> CPF: ${paciente.cpf} <br> Sexo: ${paciente.sexo} <br> Data de Nascimento: ${dataFormatada.toLocaleDateString('pt-BR')} <br> Número para contato: ${paciente.telefone}
+                    <div class='content-js'>
+                        Nome: ${paciente.nome} <br> CPF: ${paciente.cpf} <br> Sexo: ${paciente.sexo} <br> Data de Nascimento: ${dataFormatada.toLocaleDateString('pt-BR')} <br> Número para contato: ${paciente.telefone}
+                    </div>
                     <div class="buttons-container">
                         <button data-cpf="${paciente.cpf}" class="updateBtn">Atualizar</button>
                         <button data-cpf="${paciente.cpf}" class="deleteBtn">Deletar</button>
@@ -80,7 +82,7 @@ function deletePaciente(event) {
     .catch(err => console.log(err));
 }
 
-createPacienteForm.addEventListener('submit', function(event) {
+createEntidadeForm.addEventListener('submit', function(event) {
     event.preventDefault();
 
     const pacienteData = {
@@ -110,10 +112,10 @@ createPacienteForm.addEventListener('submit', function(event) {
 
 document.getElementById('botaoPesquisar').addEventListener('click', function() {
     const tipoBusca = document.getElementById('tipoBusca').value;
-    const pesquisarPaciente = document.getElementById('pesquisarPaciente').value;
+    const pesquisarPaciente = document.getElementById('pesquisarEntidade').value;
 
     
-    fetch(`/api/v1/paciente?${tipoBusca}=${encodeURIComponent(pesquisarPaciente)}`, {
+    fetch(`/api/v1/paciente?${tipoBusca}=${encodeURIComponent(pesquisarEntidade)}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }

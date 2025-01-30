@@ -4,98 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consulta de Exames Oncológicos</title>
-    <style>
-
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%; 
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f3f3f3; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column; 
-            height: 100vh; 
-            color: rgb(0, 0, 0);
-        }
-
-        /* Container da tabela */
-        .container {
-            margin-top: 60px;
-            width: 80%; 
-            max-width: 1200px; 
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-            border-radius: 8px;
-            margin-bottom: 20px; 
-        }
-
-        h1 {
-            text-align: center;
-            color: #000000; 
-            margin-bottom: 40px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #134d4e;
-            color: white;
-        }
-
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .btn-voltar {
-            background-color: #134d4e;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        .btn-voltar:hover {
-            background-color: #0f3c3d; 
-        }
-
-        .footer {
-            margin-top: 80px;
-            text-align: center;
-            padding: 10px;
-            background-color: #134d4e;
-            color: white;
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="./../public/css/tipoExames-css.css">
 </head>
-<body>
+<body><br><br><br><br>
 
-<div class="container">
+<div class="container-tipoExames">
     <h1>Consulta de Exames Oncológicos</h1>
 
-    <table>
+    <table class="table-tipoExames">
         <thead>
             <tr>
                 <th>Código</th>
@@ -122,11 +38,11 @@
         </tbody>
     </table>
 
-    <button class="btn-voltar" onclick="window.location.href='/';">Voltar à Página Principal</button>
+    <button class="btn-voltar-tipoExames" onclick="window.location.href='/';">Voltar à Página Principal</button>
 </div>
 
-<div class="footer">
-    <p>&copy; 2024 Clínica OncoCare | Todos os direitos reservados</p>
+<div class="footer-tipoExames">
+    <p>&copy; 2025 Clínica Oncológica. Todos os direitos NÃO reservados.</p>
 </div>
 </body>
 </html>

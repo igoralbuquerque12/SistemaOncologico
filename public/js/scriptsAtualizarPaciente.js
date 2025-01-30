@@ -29,7 +29,7 @@ function loadDataPacientes() {
     .catch(err => console.log(`Erro na busca pelos dados do paciente: ${err.message}`));
 }
 
-document.getElementById('updatePacienteForm').addEventListener('submit', function(event) {
+document.getElementById('updateEntidadeForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     let confirmar = confirm('Você confirma as alterações?');

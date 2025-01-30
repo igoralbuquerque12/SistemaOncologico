@@ -23,7 +23,7 @@ function loadDataMedicos() {
     .catch(err => console.log(`Erro ao buscar os dados do médico: ${err}`))
 }
 
-updateMedicoForm.addEventListener('submit', function(event) {
+updateEntidadeForm.addEventListener('submit', function(event) {
     event.preventDefault();
 
     let confirmar = confirm('Você confirma as alterações?')

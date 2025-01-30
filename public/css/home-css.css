@@ -1,0 +1,287 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.5;
+    background-color: #F2EFE7;
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+    outline: none;
+    background: none;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* Remove os estilos padrão de tabelas */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Remove o estilo padrão de listas */
+ul,
+ol {
+    list-style: none;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Barra de navegação superior - mantida do CSS original */
+.top-nav {
+    width: 100%;
+    background-color: #0f3a3a;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 10px 200px;
+    z-index: 1000;
+}
+
+.nav-content {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.nav-logo-img {
+    padding: 10px;
+    width: 240px;
+    object-fit: contain;
+}
+
+.nav-auth {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.auth-btn {
+    font-size: 22px;
+    padding: 12px 20px;
+    border-radius: 5px;
+    background-color: #0f3a3a;
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.auth-btn:hover {
+    background-color: #185858;
+}
+
+.auth-btn i {
+    font-size: 22px;
+    margin-right: 8px;
+}
+
+.user-area {
+    gap: 18px;
+    font-size: 22px;
+    padding: 12px 20px;
+    border-radius: 5px;
+    background-color: #0f3a3a;
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.user-area i {
+    font-size: 22px;
+    margin-right: 8px;
+}
+
+.logout-btn {
+    font-size: 22px;
+    padding: 12px 20px;
+    border-radius: 5px;
+    background-color: #0f3a3a;
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #185858;
+}
+
+.logout-btn i {
+    font-size: 22px;
+    margin-right: 8px;
+}
+
+/* Container principal */
+.container-home {
+    max-width: 1300px;
+    margin: 120px auto 20px;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.container-home button {
+    padding: 10 0;
+    font-weight: 700;
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Header */
+header h1 {
+    font-family: 'Poppins', sans-serif;
+    color: #0f3a3a;
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 2.5em;
+    font-weight: 800;
+}
+
+/* Área dos botões */
+.button-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    padding: 20px;
+    margin-bottom: 50px;
+}
+
+.button-container button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #0f3a3a; 
+    color: white; 
+    border: 2px solid #0f3a3a;
+    border-radius: 15px;
+    padding: 30px;
+    min-height: 200px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button-container button i {
+    font-size: 3.5em;
+    margin-bottom: 25px;
+    color: white; 
+}
+
+.button-container button:hover {
+    background-color: white; 
+    color: #0f3a3a;
+}
+
+.button-container button:hover i {
+    color: #0f3a3a; 
+}
+
+footer {
+    font-family: Poppins, sans-serif;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0f3a3a;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 18px;
+    z-index: 1000; 
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+    .top-nav {
+        padding: 10px;
+    }
+    
+    .button-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .container-home {
+        margin: 100px 20px 20px;
+        padding: 20px;
+    }
+    
+    .nav-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .button-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .auth-btn {
+        font-size: 16px;
+        padding: 10px 15px;
+    }
+    
+    .nav-logo-img {
+        width: 180px;
+    }
+}
+
+/* FIM DA HOME */
+

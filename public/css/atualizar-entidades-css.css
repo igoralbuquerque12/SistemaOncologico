@@ -1,0 +1,126 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    background-color: #F2EFE7;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+#container-atualizar {
+    max-width: 900px;
+    margin: 40px auto 20px;
+    background: white;
+    padding: 40px 70px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+#container-atualizar h1 {
+    font-family: 'Poppins', sans-serif;
+    color: #0f3a3a;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: 800;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    margin-right: 12px;
+    margin-left: -15px;
+}
+
+.form-group label {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    color: #0f3a3a;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #0f3a3a;
+    border-radius: 10px;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    transition: border-color 0.3s ease;
+    background-color: white;
+}
+
+form input:disabled {
+    background-color: #ececec; 
+    cursor: not-allowed; 
+}
+
+.form-group input:focus {
+    border-color: #185858;
+}
+
+/* Estilos para o botão de submit */
+#updateEntidadeForm button[type="submit"] {
+    width: 100%;
+    padding: 18px;
+    background-color: #0f3a3a;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+#updateEntidadeForm button[type="submit"]:hover {
+    background-color: #185858;
+}
+
+/* Estilos para o botão "Voltar" */
+#container-atualizar button[onclick] {
+    width: 100%;
+    padding: 18px;
+    background-color: #0f3a3a;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+}
+
+#container-atualizar button[onclick]:hover {
+    background-color: #185858;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #container-atualizar {
+        margin: 100px 20px 20px;
+        padding: 20px;
+    }
+
+    #container-atualizar h1 {
+        font-size: 2em;
+    }
+
+    .form-group label {
+        font-size: 16px;
+    }
+
+    .form-group input {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    #updateEntidadeForm button[type="submit"],
+    #container-atualizar button[onclick] {
+        font-size: 18px;
+        padding: 15px;
+    }
+}
