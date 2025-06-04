@@ -50,7 +50,7 @@ O Sistema Oncológico é uma aplicação web desenvolvida para gerenciamento de 
 ![Médicos](public/images/interfaces/medicos.png)
 
 ### Tipos de Exames
-![Tipos de Exames](public/images/interfaces/tipoExames.png)
+![Tipos de Exames](public/images/interfaces/tiposExames.png)
 
 ### Login e Cadastro
 ![Login e Cadastro](public/images/interfaces/login-cadastro.png)
@@ -59,7 +59,7 @@ O Sistema Oncológico é uma aplicação web desenvolvida para gerenciamento de 
 
 1. Clone o repositório
 ```bash
-git clone [URL_DO_REPOSITÓRIO]
+git clone https://github.com/igoralbuquerque12/SistemaOncologico.git
 ```
 
 2. Instale as dependências
